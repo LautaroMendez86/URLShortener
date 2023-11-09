@@ -11,6 +11,8 @@ namespace URLShortener.Entities
         
         public string URL { get; set; }
 
+        public int Visit { get; set; }
+
         public string Hash { get; set; }
 
     }

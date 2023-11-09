@@ -27,7 +27,15 @@ namespace URLShortener.Controllers
 
         public IActionResult RedirectToExternalPage(string hash)
         {
-            return Redirect(_context.XYZs.Single(x => x.Hash == hash).URL);
+            XYZ xyz = _context.XYZs.Single(x => x.Hash == hash);
+
+            xyz.Visit++;
+
+            _context.XYZs.Update(xyz);
+
+            _context.SaveChanges();
+
+            return Redirect(xyz.URL);
         }
 
         [HttpGet]
@@ -61,10 +69,11 @@ namespace URLShortener.Controllers
 
             if (isExist) return Ok("Ya existe un hash para esa URL");
 
-            var xyz = new XYZ
+            XYZ xyz = new XYZ
             {
-               URL = dto.URL,
-               Hash = HashGenerate(dto.URL)
+                URL = dto.URL,
+                Hash = HashGenerate(dto.URL),
+                Visit = 0
             };
 
             _context.XYZs.Add(xyz);
