@@ -73,7 +73,8 @@ namespace URLShortener.Controllers
             {
                 URL = dto.URL,
                 Hash = HashGenerate(dto.URL),
-                Visit = 0
+                Visit = 0,
+                CategoryID = dto.CategoryID
             };
 
             _context.XYZs.Add(xyz);

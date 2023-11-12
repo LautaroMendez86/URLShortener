@@ -15,8 +15,12 @@ namespace URLShortener.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<XYZ>()
-                .HasOne(url => url.);
+
+            modelBuilder.Entity<Category>()
+                .HasMany(cat => cat.XYZs)
+                .WithOne(xyz => xyz.Category)
+                .HasForeignKey(xyz => xyz.CategoryID)
+                .IsRequired(false);
 
             base.OnModelCreating(modelBuilder);
         }

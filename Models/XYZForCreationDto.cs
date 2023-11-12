@@ -6,6 +6,6 @@ namespace URLShortener.Models
     {
         [Required]
         public required string URL { get; set; }
-
+        public int? CategoryID { get; set; }
     }
 }

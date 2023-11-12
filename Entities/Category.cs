@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
 namespace URLShortener.Entities
 {
@@ -8,9 +9,10 @@ namespace URLShortener.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-        public int Usage { get; set; }
-        [ForeignKey("userID")]
-        public int UserID { get; set; }
-        public List<Category> Categories { get; set; }
+        public string Name { get; set; }
+        [ForeignKey("XYZID")]
+        public XYZ XYZs { get; set; }
+        public int XYZID { get; set; }
+
     }
 }
