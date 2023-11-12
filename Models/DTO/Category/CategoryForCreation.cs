@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace URLShortener.Models
+namespace URLShortener.Models.DTO.Category
 {
     public class CategoryForCreation
     {

@@ -2,6 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using URLShortener.Data;
+using URLShortener.Data.Service.Implementations;
+using URLShortener.Data.Service.Interfaces;
+using URLShortener.Data.Service.Repository;
 
 namespace URLShortener
 {
@@ -12,6 +15,11 @@ namespace URLShortener
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+                options.JsonSerializerOptions.WriteIndented = true;
+            });
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -20,7 +28,10 @@ namespace URLShortener
 
 
             builder.Services.AddDbContext<UrlShortenerContext>(dbContextOptions => dbContextOptions.UseSqlite(builder.Configuration["ConnectionStrings:AgendaAPIDBConnectionString"]));
-            
+            builder.Services.AddScoped<IXYZRepository, XYZRepository>();
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddScoped<XYZService>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

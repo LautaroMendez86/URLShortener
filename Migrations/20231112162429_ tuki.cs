@@ -5,7 +5,7 @@
 namespace URLShortener.Migrations
 {
     /// <inheritdoc />
-    public partial class addmigratonruk : Migration
+    public partial class tuki : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -54,7 +54,7 @@ namespace URLShortener.Migrations
                         column: x => x.CategoryID,
                         principalTable: "Categories",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

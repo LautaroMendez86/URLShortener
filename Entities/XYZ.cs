@@ -17,8 +17,9 @@ namespace URLShortener.Entities
         public int Visit { get; set; }
 
         public string Hash { get; set; }
-        public virtual Category Category { get; set; }
 
+        [ForeignKey("CategoryID")]
         public int CategoryID { get; set; }
+        public virtual Category Category { get; set; }
     }
 }

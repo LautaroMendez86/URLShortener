@@ -10,8 +10,8 @@ using URLShortener.Data;
 namespace URLShortener.Migrations
 {
     [DbContext(typeof(UrlShortenerContext))]
-    [Migration("20231112155253_add-migraton ruk")]
-    partial class addmigratonruk
+    [Migration("20231112162429_ tuki")]
+    partial class tuki
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -75,17 +75,12 @@ namespace URLShortener.Migrations
             modelBuilder.Entity("URLShortener.Entities.XYZ", b =>
                 {
                     b.HasOne("URLShortener.Entities.Category", "Category")
-                        .WithMany("XYZs")
+                        .WithMany()
                         .HasForeignKey("CategoryID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("URLShortener.Entities.Category", b =>
-                {
-                    b.Navigation("XYZs");
                 });
 #pragma warning restore 612, 618
         }

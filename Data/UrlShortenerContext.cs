@@ -16,8 +16,9 @@ namespace URLShortener.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            modelBuilder.Entity<XYZ>()
-                .HasOne(x => x.Category);
+            modelBuilder.Entity<Category>()
+                .HasMany(c => c.XYZs)
+                .WithOne(x => x.Category);
 
             base.OnModelCreating(modelBuilder);
         }

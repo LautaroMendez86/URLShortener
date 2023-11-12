@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace URLShortener.Models
+namespace URLShortener.Models.DTO.XYZ
 {
     public class XYZForCreationDto
     {

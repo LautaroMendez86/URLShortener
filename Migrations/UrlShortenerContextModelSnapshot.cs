@@ -72,17 +72,12 @@ namespace URLShortener.Migrations
             modelBuilder.Entity("URLShortener.Entities.XYZ", b =>
                 {
                     b.HasOne("URLShortener.Entities.Category", "Category")
-                        .WithMany("XYZs")
+                        .WithMany()
                         .HasForeignKey("CategoryID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("URLShortener.Entities.Category", b =>
-                {
-                    b.Navigation("XYZs");
                 });
 #pragma warning restore 612, 618
         }
