@@ -21,9 +21,9 @@ namespace URLShortener.Controllers
 
         // GET: api/<CategoryController>
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(int id)
         {
-            return Ok(_context.Categories.Include(x => x.XYZs).ToList());
+            return Ok(_context.Categories.Where(x => x.ID == id).ToList());
         }
 
         // GET api/<CategoryController>/5

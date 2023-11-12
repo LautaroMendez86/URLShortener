@@ -40,9 +40,10 @@ namespace URLShortener.Controllers
 
         [HttpGet]
         [Route("api/xyz/get-all")]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            return Ok(_context.XYZs.ToList());
+            var tuki = await _context.XYZs.Include(x => x.Category).ToListAsync();
+            return Ok(tuki);
         }
 
         [HttpGet]

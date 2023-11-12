@@ -11,16 +11,13 @@ namespace URLShortener.Data
         public UrlShortenerContext(DbContextOptions<UrlShortenerContext> options) : base(options) //Acá estamos llamando al constructor de DbContext que es el que acepta las opciones
         {
         }
-        
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            modelBuilder.Entity<Category>()
-                .HasMany(cat => cat.XYZs)
-                .WithOne(xyz => xyz.Category)
-                .HasForeignKey(xyz => xyz.CategoryID)
-                .IsRequired(false);
+            modelBuilder.Entity<XYZ>()
+                .HasOne(x => x.Category);
 
             base.OnModelCreating(modelBuilder);
         }
