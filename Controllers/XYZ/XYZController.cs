@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using URLShortener.Data;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using URLShortener.Data.Service.Interfaces;
-using URLShortener.Entities;
 using URLShortener.Models.DTO.XYZ;
 
 namespace URLShortener.Controllers
@@ -9,10 +9,12 @@ namespace URLShortener.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class XYZController : ControllerBase
     {
 
         private readonly IXYZRepository _xyzRepository;
+
         public XYZController(IXYZRepository xyzRepository)
         {
             _xyzRepository = xyzRepository;
@@ -21,16 +23,17 @@ namespace URLShortener.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return Ok(_xyzRepository.Index());
+            int.TryParse(User.FindFirst(ClaimTypes.NameIdentifier).Value, out int userId);
+            return Ok(_xyzRepository.Index(userId));
         }
 
         [HttpPost]
         public IActionResult Create(XYZForCreationDto dto)
         {
-
             try
             {
-                _xyzRepository.Create(dto);
+                int.TryParse(User.FindFirst(ClaimTypes.NameIdentifier).Value, out int userId);
+                _xyzRepository.Create(dto, userId);
                 return Ok("Registro creado exitosamente");
             }
             catch (Exception ex)
@@ -43,7 +46,8 @@ namespace URLShortener.Controllers
         [HttpPut]
         public IActionResult Update(XYZForUpdateDTO dto)
         {
-            _xyzRepository.Update(dto);
+            int.TryParse(User.FindFirst(ClaimTypes.NameIdentifier).Value, out int userId);
+            _xyzRepository.Update(dto, userId);
             return Ok("Se ha actualizado correctamente");
         }
 

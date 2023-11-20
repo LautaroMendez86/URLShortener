@@ -20,6 +20,10 @@ namespace URLShortener.Data
                 .HasMany(c => c.XYZs)
                 .WithOne(x => x.Category);
 
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.XYZs)
+                .WithOne(u => u.User);
+
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using URLShortener.Data.Service.Interfaces;
 using URLShortener.Models.DTO.Category;
 
@@ -6,6 +7,7 @@ namespace URLShortener.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CategoryController : ControllerBase
     {
 

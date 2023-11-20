@@ -18,6 +18,10 @@ namespace URLShortener.Entities
 
         public string Hash { get; set; }
 
+        [ForeignKey("UserID")]
+        public int UserID { get; set; }
+        public virtual User User { get; set; }
+
         [ForeignKey("CategoryID")]
         public int CategoryID { get; set; }
         public virtual Category Category { get; set; }

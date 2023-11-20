@@ -37,6 +37,22 @@ namespace URLShortener.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.HasKey("ID");
 
                     b.ToTable("Users");
@@ -59,6 +75,9 @@ namespace URLShortener.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("UserID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("Visit")
                         .HasColumnType("INTEGER");
 
@@ -66,18 +85,38 @@ namespace URLShortener.Migrations
 
                     b.HasIndex("CategoryID");
 
+                    b.HasIndex("UserID");
+
                     b.ToTable("XYZs");
                 });
 
             modelBuilder.Entity("URLShortener.Entities.XYZ", b =>
                 {
                     b.HasOne("URLShortener.Entities.Category", "Category")
-                        .WithMany()
+                        .WithMany("XYZs")
                         .HasForeignKey("CategoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("URLShortener.Entities.User", "User")
+                        .WithMany("XYZs")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("URLShortener.Entities.Category", b =>
+                {
+                    b.Navigation("XYZs");
+                });
+
+            modelBuilder.Entity("URLShortener.Entities.User", b =>
+                {
+                    b.Navigation("XYZs");
                 });
 #pragma warning restore 612, 618
         }

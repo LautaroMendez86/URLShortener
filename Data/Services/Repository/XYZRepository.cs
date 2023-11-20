@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using System.Xml.Linq;
 using URLShortener.Data.Service.Implementations;
 using URLShortener.Data.Service.Interfaces;
 using URLShortener.Entities;
@@ -19,9 +22,9 @@ namespace URLShortener.Data.Service.Repository
             _categoryRepository = categoryRepository;
         }
 
-        public List<XYZ> Index()
+        public List<XYZ> Index(int userId)
         {
-            return _context.XYZs.Include(xyz => xyz.Category).ToList();
+            return _context.XYZs.Include(xyz => xyz.Category).Where(xyz => xyz.UserID == userId).ToList();
         }
 
         public List<XYZ> GetOne(int id)
@@ -29,7 +32,7 @@ namespace URLShortener.Data.Service.Repository
             return _context.XYZs.Include(xyz => xyz.Category).Where(xyz => xyz.ID == id).ToList();
         }
 
-        public void Create(XYZForCreationDto dto)
+        public void Create(XYZForCreationDto dto, int userId)
         {
 
             CreateValidations(dto);
@@ -39,7 +42,8 @@ namespace URLShortener.Data.Service.Repository
                 URL = dto.URL,
                 Hash = _xyzService.HashGenerate(dto.URL),
                 Visit = 0,
-                CategoryID = dto.CategoryID
+                CategoryID = dto.CategoryID,
+                UserID = userId
             };
 
             _context.XYZs.Add(xyz);
@@ -47,7 +51,7 @@ namespace URLShortener.Data.Service.Repository
 
         }
 
-        public void Update(XYZForUpdateDTO dto)
+        public void Update(XYZForUpdateDTO dto, int userId)
         {
             UpdateValidations(dto);
 
@@ -57,7 +61,8 @@ namespace URLShortener.Data.Service.Repository
                 URL = dto.URL,
                 Hash = _xyzService.HashGenerate(dto.URL),
                 Visit = 0,
-                CategoryID = dto.CategoryID
+                CategoryID = dto.CategoryID,
+                UserID = userId
             };
 
             _context.XYZs.Update(xyz);
@@ -125,5 +130,6 @@ namespace URLShortener.Data.Service.Repository
             }
 
         }
+
     }
 }
